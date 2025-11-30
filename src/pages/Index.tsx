@@ -7,6 +7,7 @@ import { TransactionForm } from '@/components/TransactionForm';
 import { TransactionList } from '@/components/TransactionList';
 import { FilterPanel, FilterOptions } from '@/components/FilterPanel';
 import { ChartsPanel } from '@/components/ChartsPanel';
+import { ExpensesView } from '@/components/ExpensesView';
 import { 
   getTransactions, 
   getCategories, 
@@ -188,17 +189,29 @@ const Index = () => {
         </motion.div>
 
         {/* Conteúdo Principal */}
-        <Tabs defaultValue="transactions" className="space-y-6">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
+            <TabsTrigger value="overview" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Visão Geral
+            </TabsTrigger>
             <TabsTrigger value="transactions" className="flex items-center gap-2">
               <List className="h-4 w-4" />
               Transações
             </TabsTrigger>
             <TabsTrigger value="charts" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
-              Gráficos
+              Análises
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="overview">
+            <ExpensesView
+              transactions={transactions}
+              categories={categories}
+              selectedMonth={selectedMonth}
+            />
+          </TabsContent>
 
           <TabsContent value="transactions" className="space-y-6">
             <FilterPanel 
